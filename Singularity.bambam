@@ -1,0 +1,19 @@
+Bootstrap: yum
+OSVersion: 7
+MirrorURL: http://mirror.centos.org/centos-%{OSVERSION}/%{OSVERSION}/os/$basearch/ 
+Include: yum
+
+%setup
+    cp -Rv bambam ${SINGULARITY_ROOTFS}/opt/rit/
+
+#%files
+#    bambam /opt/rit/
+
+%environment
+export PATH=/opt/rit/bambam/bin:$PATH
+export LD_LIBRARY_PATH=/opt/rit/bambam/lib:$LD_LIBRARY_PATH
+
+$post
+    echo "list /opt/rit/"
+    ls /opt/rit
+    ls /opt/rit/bambam/lib
